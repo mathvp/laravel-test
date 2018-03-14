@@ -111,8 +111,18 @@ return [
         'MENU',
         [
             'text'        => 'Home',
-            'url'         => 'home/pages',
+            'url'         => 'admin',
             'icon'        => 'home',
+        ],
+        [
+            'text' => 'Companies',
+            'url'  => 'admin/companies',
+            'icon' => 'briefcase',
+        ],
+        [
+            'text' => 'Employees',
+            'url'  => 'admin/employees',
+            'icon' => 'id-badge',
         ],
         
     ],
