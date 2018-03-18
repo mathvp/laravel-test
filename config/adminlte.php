@@ -121,12 +121,12 @@ return [
                 [
                     'text' => 'Show all companies',
                     'url'  => 'admin/companies',
-                    'icon' => 'briefcase',
+                    'icon' => 'list-ul',
                 ],
                 [
                     'text' => 'Create Company',
                     'url'  => 'admin/companies/create-company',
-                    'icon' => 'briefcase',
+                    'icon' => 'plus-square',
                 ]
             ]
         ],
@@ -134,6 +134,18 @@ return [
             'text' => 'Employees',
             'url'  => 'admin/employees',
             'icon' => 'id-badge',
+            'submenu' => [
+                [
+                    'text' => 'Show all Employees',
+                    'url'  => 'admin/employees',
+                    'icon' => 'list-ul',
+                ],
+                [
+                    'text' => 'Create Employee',
+                    'url'  => 'admin/employees/create-employee',
+                    'icon' => 'plus-square',
+                ]
+            ]
         ],
         
     ],
