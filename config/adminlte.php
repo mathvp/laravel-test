@@ -116,8 +116,19 @@ return [
         ],
         [
             'text' => 'Companies',
-            'url'  => 'admin/companies',
             'icon' => 'briefcase',
+            'submenu' => [
+                [
+                    'text' => 'Show all companies',
+                    'url'  => 'admin/companies',
+                    'icon' => 'briefcase',
+                ],
+                [
+                    'text' => 'Create Company',
+                    'url'  => 'admin/companies/create-company',
+                    'icon' => 'briefcase',
+                ]
+            ]
         ],
         [
             'text' => 'Employees',

@@ -13,8 +13,14 @@
 
 $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'admin'], function(){
     $this->get('/', 'AdminController@index')->name('admin.home');
-    $this->get('companies', 'CompaniesController@index')->name('admin.companies');
-    $this->get('employees', 'EmployeesController@index')->name('admin.employees');
+
+    $this->group(['prefix' => 'companies'], function(){
+        $this->get('/', 'CompanyController@index')->name('admin.companies');
+        $this->get('create-company', 'CompanyController@create')->name('admin.companies.create-company');
+        $this->post('create-company', 'CompanyController@store')->name('admin.companies.create-company');
+    });
+
+    $this->get('employees', 'EmployeeController@index')->name('admin.employees');
 });
 
 $this->get('/', 'Site\SiteController@index')->name('home');
