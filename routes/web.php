@@ -22,6 +22,7 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
         Route::resource('edit-company', 'CompanyController', ['names' => [
             'update' => 'admin.companies.update-company'
         ]]);
+        $this->delete('/{id}', 'CompanyController@destroy')->name('admin.companies.remove-company');
     });
 
     $this->group(['prefix' => 'employees'], function(){

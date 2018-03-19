@@ -5,7 +5,11 @@
 @section('content_header')
     <h1>Companies</h1>
 @stop
-
+<style>
+  .actions form{
+    display:inline;
+  }
+</style>
 @section('content')
     <!-- /.box-header -->
     <div class="box-body">
@@ -13,7 +17,7 @@
       @if(session('success'))
           <div class="alert alert-success alert-dismissible">
               <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-              <h4><i class="icon fa fa-check"></i> Company Updated!</h4>
+              <h4><i class="icon fa fa-check"></i> {{ session('success') }}</h4>
           </div>
       @endif
 
@@ -44,7 +48,17 @@
             <td>{{$company->company_email}}</td>
             <td><a href="#" data-toggle='tooltip' title='<img src="{{asset('storage/logos/'.$company->company_logo)}}" width="50" class="margin"/>'>{{$company->company_name}}</a></td>
             <td>{{$company->company_website}}</td>
-            <td><a href="{{ route('admin.companies.edit-company', $company->id) }}" class="text-green" alt="Edit" title="Edit"><i class="fa fa-fw fa-edit"></i></a> | <a href="#" class="text-red" alt="Delete" title="Delete"><i class="fa fa-fw fa-trash"></i></a></td>
+            <td class="actions">
+              <a href="{{ route('admin.companies.edit-company', $company->id) }}" class="text-green" alt="Edit" title="Edit">
+                <i class="fa fa-fw fa-edit"></i>
+              </a> | 
+              {{ Form::open(['method' => 'DELETE', 'route' => ['admin.companies.remove-company', $company->id],'onsubmit' => 'return confirm("Are you sure?")', 'id'=>$company->id]) }}
+                <a href="#" class="text-red" alt="Delete" title="Delete" onclick="$(this).closest('form').submit();">
+                  <i class="fa fa-fw fa-trash"></i>
+                </a>
+              {{ Form::close() }}
+
+            </td>
           </tr>
         @endforeach
         </tbody>
