@@ -20,7 +20,12 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
         $this->post('create-company', 'CompanyController@store')->name('admin.companies.create-company');
     });
 
-    $this->get('employees', 'EmployeeController@index')->name('admin.employees');
+    $this->group(['prefix' => 'employees'], function(){
+        $this->get('/', 'EmployeeController@index')->name('admin.employees');
+        $this->get('create-employee', 'EmployeeController@create')->name('admin.employees.create-employee');
+        $this->post('create-employee', 'EmployeeController@store')->name('admin.employees.store-employee');
+    });
+
 });
 
 $this->get('/', 'Site\SiteController@index')->name('home');

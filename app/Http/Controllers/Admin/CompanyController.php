@@ -42,10 +42,6 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $dadosEmpresa = $request->all();
-        echo '<pre>';
-        print_r($dadosEmpresa);
-        echo '</pre>';
-
 
         // validate
         // read more on validation at http://laravel.com/docs/validation
@@ -80,11 +76,6 @@ class CompanyController extends Controller
             
         }
 
-
-
-        //Company::create($dadosEmpresa);
-
-        //return back()->with(['success' => 'Company saved!']);
     }
 
     /**

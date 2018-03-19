@@ -12,6 +12,5 @@ class Company extends Model
        'company_logo',	
        'company_website'
    ];
-   //protected $guarded = ['id', 'created_at', 'update_at'];
-   //protected $table = 'companies';
+
 }
