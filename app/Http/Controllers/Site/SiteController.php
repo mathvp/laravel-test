@@ -10,6 +10,6 @@ class SiteController extends Controller
     public function index(){
 
         return redirect()->route('login');
-        //return view('site.home.index');
+
     }
 }
