@@ -16,7 +16,7 @@
             {{ session('success') }}
         @endif
         <!-- form start -->
-        <form role="form" action="{{ route('admin.companies.create-company') }}" method="post">
+        <form role="form" action="{{ route('admin.companies.create-company') }}" method="post" enctype="multipart/form-data">
             {!! csrf_field() !!}
             <div class="box-body">
                 <div class="form-group">

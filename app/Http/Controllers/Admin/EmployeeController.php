@@ -45,17 +45,13 @@ class EmployeeController extends Controller
     public function store(Request $request)
     {
         $dadosEmpregado = $request->all();
-        echo '<pre>';
-        print_r($dadosEmpregado);
-        echo '</pre>';
 
         // validate
-        // read more on validation at http://laravel.com/docs/validation
         $rules = array(
             'first-name'  => 'required',
             'last-name'   => 'required',
             'company'     => 'required',
-            'email'       => 'required',
+            'email'       => 'required|email',
             'phone'       => 'required'
         );
 

@@ -47,7 +47,8 @@ class CompanyController extends Controller
         // read more on validation at http://laravel.com/docs/validation
         $rules = array(
             'name'       => 'required',
-            'email'       => 'required',
+            'email'      => 'required',
+           // 'input_img'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'site'       => 'required'
         );
         $validator = Validator::make(Input::all(), $rules);
@@ -68,11 +69,16 @@ class CompanyController extends Controller
             $company->company_email = Input::get('email');
             $company->company_website = Input::get('site');
 
+            $logoName = time().'.'.$request->logo->getClientOriginalExtension();
+            $request->logo->move(storage_path('app/public/logos'), $logoName);
+
+            $company->company_logo = $logoName;
+
             $company->save();
 
             // redirect
             Session::flash('message', 'Successfully created Category!');
-            return back()->with(['success' => 'Company saved!']);
+            return back();
             
         }
 
