@@ -105,7 +105,10 @@ class EmployeeController extends Controller
      */
     public function edit($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        $companies = DB::table('companies')->select('id', 'company_name')->get();
+
+        return view('admin.employees.edit-employee', compact('employee', 'companies'));
     }
 
     /**
@@ -117,7 +120,35 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $rules = array(
+            'first-name' => 'required',
+            'last-name'  => 'required',
+            'email'      => 'required|email',
+            'phone'      => 'required',
+            'company'      => 'required'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
+
+            try{
+                $employee = Employee::find($id);
+                $employee->employees_first_name = Input::get('first-name');
+                $employee->employees_last_name = Input::get('last-name');
+                $employee->employees_email = Input::get('email');
+                $employee->employees_phone = Input::get('phone');
+                $employee->company_id = Input::get('company');
+
+                $employee->save();
+                return redirect()->route('admin.employees.edit-employee', $id)->with('success', 'Sucesso ao atualizar!');
+             
+            }catch(Exception $e){
+                //echo $e->getMessage();
+                return back()->with('error', 'Erro ao atualizar...');
+            }
+        }
     }
 
     /**

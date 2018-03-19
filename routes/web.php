@@ -10,6 +10,7 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
+$this->get('/', 'SiteController@index')->name('site.home');
 
 $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'admin'], function(){
     $this->get('/', 'AdminController@index')->name('admin.home');
@@ -29,6 +30,11 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
         $this->get('/', 'EmployeeController@index')->name('admin.employees');
         $this->get('create-employee', 'EmployeeController@create')->name('admin.employees.create-employee');
         $this->post('create-employee', 'EmployeeController@store')->name('admin.employees.store-employee');
+        $this->get('edit-employee/{id}', 'EmployeeController@edit')->name('admin.employees.edit-employee');
+        Route::resource('edit-employee', 'EmployeeController', ['names' => [
+            'update' => 'admin.employees.update-employee'
+        ]]);
+        $this->delete('/{id}', 'EmployeeController@destroy')->name('admin.employees.remove-employee');
     });
 
 });
