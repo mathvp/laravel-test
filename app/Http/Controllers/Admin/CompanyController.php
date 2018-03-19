@@ -49,7 +49,7 @@ class CompanyController extends Controller
             'name'       => 'required',
             'email'      => 'required',
            // 'input_img'  => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'site'       => 'required'
+            'site'       => 'nullable'
         );
         $validator = Validator::make(Input::all(), $rules);
 
@@ -57,7 +57,7 @@ class CompanyController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required',
-            'site' => 'required'
+            'site' => 'nullable'
         ]);
 
         if ($validator->fails()) {
@@ -103,7 +103,9 @@ class CompanyController extends Controller
      */
     public function edit($id)
     {
-        //
+        $company = Company::findOrFail($id);
+
+        return view('admin.companies.edit-company', compact('company'));
     }
 
     /**
@@ -115,7 +117,41 @@ class CompanyController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $dados = $request->all();
+
+        $rules = array(
+            'name'   => 'required',
+            'email'  => 'required',
+            'site'   => 'nullable'
+        );
+        $validator = Validator::make(Input::all(), $rules);
+
+        if ($validator->fails()) {
+            return back()->withErrors($validator)->withInput();
+        } else {
+
+            try{
+                $company = Company::find($id);
+                $company->company_name = Input::get('name');
+                $company->company_email = Input::get('email');
+                $company->company_website = Input::get('site');
+
+                if($request->logo){
+                    $logoName = time().'.'.$request->logo->getClientOriginalExtension();
+                    $request->logo->move(storage_path('app/public/logos'), $logoName);
+
+                    $company->company_logo = $logoName;
+                }
+
+                $company->save();
+                return redirect()->route('admin.companies.edit-company', $id)->with('success', 'Sucesso ao atualizar!');
+             
+            }catch(Exception $e){
+                //echo $e->getMessage();
+                return back()->with('error', 'Erro ao atualizar...');
+            }
+        }
+
     }
 
     /**

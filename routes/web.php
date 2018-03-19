@@ -18,6 +18,10 @@ $this->group(['middleware' => ['auth'], 'namespace' => 'Admin', 'prefix' => 'adm
         $this->get('/', 'CompanyController@index')->name('admin.companies');
         $this->get('create-company', 'CompanyController@create')->name('admin.companies.create-company');
         $this->post('create-company', 'CompanyController@store')->name('admin.companies.create-company');
+        $this->get('edit-company/{id}', 'CompanyController@edit')->name('admin.companies.edit-company');
+        Route::resource('edit-company', 'CompanyController', ['names' => [
+            'update' => 'admin.companies.update-company'
+        ]]);
     });
 
     $this->group(['prefix' => 'employees'], function(){
